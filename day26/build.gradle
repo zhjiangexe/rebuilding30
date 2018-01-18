@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'org.unbroken-dome.test-sets' version '1.4.2'
+}
+
+testSets {
+    integrationTest { dirName = 'integrationTest' }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+tasks.withType(Test) {
+    reports.html.destination file("${reporting.baseDir}/${name}")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.25'
+    compile group: 'org.springframework', name: 'spring-aspects', version: '4.2.9.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.2.9.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.2.9.RELEASE'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.2.0'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.2.9.RELEASE'
+    compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.196'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.8.0'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '4.2.9.RELEASE'
+
+    /**
+     *
+     */
+    integrationTestCompile(
+            'org.dbunit:dbunit:2.5.4',
+            'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
+    )
+    // integrationTestRuntime(
+    // )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.rebuilding.day.unitTest.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+integrationTest {
+    useJUnit {
+        includeCategories 'com.rebuilding.day.integrationTest.IntegrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}

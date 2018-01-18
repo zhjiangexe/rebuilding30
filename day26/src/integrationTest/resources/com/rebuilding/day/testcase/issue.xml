@@ -1,0 +1,10 @@
+<dataset>
+    <issue id="1"
+           title="BIG"
+           desc="test desc 1"
+    />
+    <issue id="2"
+           title="[empty_string]"
+           desc="test desc 2"
+    />
+</dataset>

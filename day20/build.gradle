@@ -1,0 +1,16 @@
+group 'com.jiang'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'pl.pragmatists', name: 'JUnitParams', version: '1.1.1'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.8.0'
+}

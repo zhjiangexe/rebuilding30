@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    /**
+     * 1. 引入plugin簡化整合測試配置
+     */
+    id 'org.unbroken-dome.test-sets' version '1.4.2'
+}
+
+/**
+ * 2. 設定整合測試，這將會從目錄`src/integrationTest/java`，`src/integrationTest/resources`取得資訊進行整合測試
+ */
+testSets {
+    integrationTest { dirName = 'integrationTest' }
+}
+
+/**
+ * 3. 指定整合測試任務在check任務之前執行，則任務視為失敗
+ * 指定執行整合測試之前必須先執行單元測試
+ */
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+/**
+* 4. 指定單元測試及整合測試的HTML報告，放置到各自的資料夾
+*/
+tasks.withType(Test) {
+    reports.html.destination file("${reporting.baseDir}/${name}")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.25'
+    compile group: 'org.springframework', name: 'spring-aspects', version: '4.2.9.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.2.9.RELEASE'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.8.0'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '4.2.9.RELEASE'
+    /**
+     * 5. 可以配置整合測試Compile以及Runtime階段所需的相依套件，已經包含testCompile所有的相依套件
+     **/
+    // integrationTestCompile(
+    // )
+    // integrationTestRuntime(
+    // )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.rebuilding.day.unitTest.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+/**
+* 6. 新增整合測試的設定@Category(IntegrationTest.class)，指定使用JUnit，並且指定介面@Category(IntegrationTest.class)限制執行類別
+*/
+integrationTest {
+    useJUnit {
+        includeCategories 'com.rebuilding.day.integrationTest.IntegrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}

@@ -1,0 +1,20 @@
+<dataset>
+    <issue id="1"
+           title="BIG"
+           desc="big issue desc"
+           state="TODO"
+           creator_num="100"
+           assignee_num="[null]"
+           closer_num="[null]"
+           result="[null]"
+    />
+    <issue id="2"
+           title="SMALL"
+           desc="small issue is easy "
+           state="IN_PROGRESS"
+           creator_num="100"
+           assignee_num="101"
+           closer_num="[null]"
+           result="[null]"
+    />
+</dataset>

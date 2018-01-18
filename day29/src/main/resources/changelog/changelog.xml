@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="01-create-issue-table" author="rebuilding30">
+        <createTable tableName="issue">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="desc" type="VARCHAR(1024)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="creator_num" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="assignee_num" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="closer_num" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="state" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="result" type="VARCHAR(10)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
